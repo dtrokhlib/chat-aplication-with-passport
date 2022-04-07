@@ -1,7 +1,8 @@
-import "dotenv/config";
-import { Server } from "socket.io";
-import { Application } from "./app";
-import http from "http";
+import 'dotenv/config';
+import { Server, Socket } from 'socket.io';
+import { Application } from './app';
+import http from 'http';
+import { messageReceived } from './event-handlers/message-event-handler';
 
 const PORT = process.env.PORT || 3000;
 
@@ -13,6 +14,11 @@ server.listen(PORT, () => {
   console.log(`chat-app-with-passport is running on ${PORT}`);
 });
 
-io.on("connection", (socket) => {
-  console.log("a user connected");
-});
+const onConnection = (socket: Socket) => {
+  console.log('Connection to WebSocket received');
+  socket.emit('message', 'Welcome to the chat!');
+
+  socket.on('message:received', messageReceived);
+};
+
+io.on('connection', onConnection);

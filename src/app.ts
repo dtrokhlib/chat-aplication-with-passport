@@ -1,6 +1,7 @@
-import bodyParser from "body-parser";
-import express, { Express } from "express";
-import { chatRouter } from "./routes/chat";
+import bodyParser from 'body-parser';
+import express, { Express } from 'express';
+import { chatRouter } from './routes/chat';
+import path from 'path';
 
 export class Application {
   app: Express;
@@ -10,7 +11,7 @@ export class Application {
   }
 
   setup() {
-    this.app.use(express.static(__dirname + "/public"));
+    this.app.use(express.static(path.join(__dirname, 'public')));
     this.app.use(bodyParser.json());
   }
 
