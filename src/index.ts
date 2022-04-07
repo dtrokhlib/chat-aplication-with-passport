@@ -2,7 +2,7 @@ import 'dotenv/config';
 import { Server, Socket } from 'socket.io';
 import { Application } from './app';
 import http from 'http';
-import { messageReceived } from './event-handlers/message-event-handler';
+import { registerMessageHandler } from "./event-handlers/message-event-handler";
 
 const PORT = process.env.PORT || 3000;
 
@@ -15,10 +15,9 @@ server.listen(PORT, () => {
 });
 
 const onConnection = (socket: Socket) => {
-  console.log('Connection to WebSocket received');
   socket.emit('message', 'Welcome to the chat!');
 
-  socket.on('message:received', messageReceived);
+  registerMessageHandler(io, socket);
 };
 
 io.on('connection', onConnection);
