@@ -22,4 +22,5 @@ export interface IUserDocument extends Document {
 
 export interface IUserModel extends Model<IUserDocument> {
   build: (data: IUser) => any;
+  comparePasswords: (password: string, passwordHashed: string) => Promise<boolean>;
 }
