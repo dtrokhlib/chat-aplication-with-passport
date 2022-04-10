@@ -5,6 +5,10 @@ import path from 'path';
 import PassportLocal from 'passport-local';
 import passport from 'passport';
 import { User } from './models/user';
+import { authRouter } from './routes/auth';
+import './middlewares/passport-strategies';
+import cookieParser from 'cookie-parser';
+import morgan from 'morgan';
 
 export class Application {
   app: Express;
@@ -17,31 +21,18 @@ export class Application {
     this.app.use(passport.initialize());
     this.app.use(express.static(path.join(__dirname, 'public')));
     this.app.use(bodyParser.json());
-  }
-
-  passportSetup() {
-    passport.use(
-      new PassportLocal.Strategy(
-        { usernameField: 'email' },
-        async (email, passport, done) => {
-          try {
-            const user = await User.findOne({ email });
-          } catch (err) {
-            done(err);
-          }
-        }
-      )
-    );
+    this.app.use(morgan('dev')); // log every request to the console
+    this.app.use(cookieParser());
   }
 
   middlewares() {}
 
   routes() {
     this.app.use(chatRouter);
+    this.app.use(authRouter);
   }
 
   bootstrap() {
-    this.passportSetup();
     this.setup();
     this.middlewares();
     this.routes();

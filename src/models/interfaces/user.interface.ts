@@ -7,7 +7,7 @@ export interface IUser {
   lastName: string;
   passwordHashed: string;
   avatar?: Buffer;
-  token?: [{ token: string }];
+  tokens?: [{ token: string }];
 }
 
 export interface IUserDocument extends Document {
@@ -17,10 +17,11 @@ export interface IUserDocument extends Document {
   lastName: string;
   passwordHashed: string;
   avatar?: Buffer;
-  token?: [{ token: string }];
+  tokens?: [{ token: string }];
 }
 
 export interface IUserModel extends Model<IUserDocument> {
   build: (data: IUser) => any;
   comparePasswords: (password: string, passwordHashed: string) => Promise<boolean>;
+  tokenGenerate: () => any;
 }
