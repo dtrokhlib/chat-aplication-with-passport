@@ -15,10 +15,27 @@ router.post(
   }
 );
 
-router.post('/auth/signup/local', async (req: Request, res: Response) => {
+router.post(
+  '/auth/signup/local',
+  passport.authenticate('local-signup', {}),
+  async (req: Request, res: Response) => {
+    try {
+      res.send(req.user);
+    } catch (err) {
+      res.status(500).send({ err });
+    }
+  }
+);
+
+router.get('/auth/login/check', async (req: Request, res: Response) => {
   try {
+    if (req.isAuthenticated()) {
+      res.send(req.user);
+    } else {
+      res.send({ message: 'Not Authorized' });
+    }
   } catch (err) {
-    res.status(500).send({ err });
+    res.send({ err });
   }
 });
 

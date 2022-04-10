@@ -5,7 +5,7 @@ export interface IUser {
   phone: string;
   firstName: string;
   lastName: string;
-  passwordHashed: string;
+  password: string;
   avatar?: Buffer;
   tokens?: [{ token: string }];
 }
@@ -15,7 +15,7 @@ export interface IUserDocument extends Document {
   phone: string;
   firstName: string;
   lastName: string;
-  passwordHashed: string;
+  password: string;
   avatar?: Buffer;
   tokens?: [{ token: string }];
 }

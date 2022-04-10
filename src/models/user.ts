@@ -24,9 +24,9 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    passwordHashed: {
+    password: {
       type: String,
-      required: true,
+      required: false,
     },
     avatar: {
       type: Buffer,
@@ -62,17 +62,12 @@ userSchema.statics.comparePasswords = async (
   return match;
 };
 
-userSchema.pre('save', async function (next) {
-  const user = this;
-
-  if (!user.isModified('passwordHashed')) {
-    return next();
+userSchema.pre('save', async function () {
+  if (this.isModified('password')) {
+    const salt = await bcrypt.genSalt(Number(process.env.SALT_ROUNDS || 10));
+    const hashedPassword = await bcrypt.hash(this.password, salt);
+    this.password = hashedPassword;
   }
-
-  user.passwordHashed = await bcrypt.hash(
-    user.passwordHashed,
-    process.env.HASH_ROUNDS || 8
-  );
 });
 
 userSchema.methods.tokenGenerate = async function () {
