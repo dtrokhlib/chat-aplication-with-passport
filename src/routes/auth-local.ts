@@ -27,16 +27,5 @@ router.post(
   }
 );
 
-router.get('/auth/login/check', async (req: Request, res: Response) => {
-  try {
-    if (req.isAuthenticated()) {
-      res.send(req.user);
-    } else {
-      res.send({ message: 'Not Authorized' });
-    }
-  } catch (err) {
-    res.send({ err });
-  }
-});
 
-export { router as authRouter };
+export { router as authLocalRouter };

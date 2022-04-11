@@ -1,23 +1,19 @@
 import { Model, Document } from 'mongoose';
 
 export interface IUser {
-  email: string;
-  phone: string;
+  username: string;
   firstName: string;
   lastName: string;
-  password: string;
-  avatar?: Buffer;
-  tokens?: [{ token: string }];
+  password?: string;
+  avatar?: string;
 }
 
 export interface IUserDocument extends Document {
-  email: string;
-  phone: string;
+  username: string;
   firstName: string;
   lastName: string;
-  password: string;
+  password?: string;
   avatar?: Buffer;
-  tokens?: [{ token: string }];
 }
 
 export interface IUserModel extends Model<IUserDocument> {

@@ -8,11 +8,7 @@ const ObjectId = mongoose.Types.ObjectId;
 
 const userSchema = new Schema(
   {
-    email: {
-      type: String,
-      required: true,
-    },
-    phone: {
+    username: {
       type: String,
       required: true,
     },
@@ -32,19 +28,13 @@ const userSchema = new Schema(
       type: Buffer,
       required: false,
     },
-    tokens: [
-      {
-        token: String,
-      },
-    ],
   },
   {
     toJSON: {
       transform(doc, ret) {
         ret.id = ret.id;
         delete ret._id;
-        delete ret.passwordHashed;
-        delete ret.token;
+        delete ret.password;
       },
     },
   }

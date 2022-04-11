@@ -3,11 +3,14 @@ import express, { Express } from 'express';
 import { chatRouter } from './routes/chat';
 import path from 'path';
 import passport from 'passport';
-import { authRouter } from './routes/auth';
+import { authLocalRouter } from './routes/auth-local';
 import './middlewares/passport-strategies';
 import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
 import session from 'express-session';
+import { authFacebookRouter } from './routes/auth-facebook';
+import { authGoogleRouter } from './routes/auth-google';
+import { authTwitterRouter } from './routes/auth-twitter';
 
 export class Application {
   app: Express;
@@ -36,7 +39,10 @@ export class Application {
 
   routes() {
     this.app.use(chatRouter);
-    this.app.use(authRouter);
+    this.app.use(authLocalRouter);
+    this.app.use(authFacebookRouter);
+    this.app.use(authGoogleRouter);
+    this.app.use(authTwitterRouter);
   }
 
   bootstrap() {
