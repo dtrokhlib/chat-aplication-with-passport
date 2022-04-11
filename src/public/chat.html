@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Socket.IO chat</title>
+  <link rel="stylesheet" href="/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="/css/main.css" />
+</head>
+
+<body>
+  <div class="container main">
+    <div class="row divider">
+      <div class="col-4 your-info">
+        <div class="row p-2">
+          <div class="col">
+            <h5>Dmitriy Trokhlib</h5>
+          </div>
+        </div>
+        <div class="row p-2">
+          <div class="col">
+            <form class="d-flex">
+              <input class="form-control me-2" type="search" placeholder="Enter room name..." aria-label="Search" />
+              <button class="btn btn-outline-light" type="submit">
+                Search
+              </button>
+              <button class="btn btn-outline-light" style="margin-left: 5px" type="submit">
+                Create
+              </button>
+            </form>
+          </div>
+        </div>
+        <div class="container room-container">
+          <div class="row">
+            <div class="col">
+              <h5>Chat name</h5>
+              <span>Chat last message... 17.57</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col main-message-container">
+        <div class="row text-message">
+          <div class="container">
+            <div class="row">
+              <div class="col">
+                <div class="row message1">
+                  <div class="col">
+                    <span>Username</span><br /><span>Chat last message... 17.57</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-group mb-3 send-message-area">
+                <span class="input-group-text" id="inputGroup-sizing-default">Message</span>
+                <input type="text" class="form-control" aria-label="Sizing example input" id="message-value"
+                  aria-describedby="inputGroup-sizing-default" />
+                <button type="button" id="send-message" class="btn btn-primary">
+                  Send
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+<script src="/js/bootstrap.bundle.min.js"></script>
+<script src="/js/socket.io.js"></script>
+<script src="/js/message.js"></script>
+
+<script></script>
+
+</html>
