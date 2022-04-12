@@ -17,7 +17,7 @@ router.post(
 
 router.post(
   '/auth/signup/local',
-  passport.authenticate('local-signup', {}),
+  passport.authenticate('local-signup'),
   async (req: Request, res: Response) => {
     try {
       res.send(req.user);

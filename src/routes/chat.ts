@@ -4,7 +4,6 @@ import path from 'path';
 const router = Router();
 
 router.get('/', async (req: Request, res: Response) => {
-    console.log(req.isAuthenticated());
   if (req.isAuthenticated()) {
     res.sendFile(path.resolve(__dirname + '/../public/chat.html'));
   } else {

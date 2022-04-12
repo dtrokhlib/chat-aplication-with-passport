@@ -13,7 +13,7 @@ export interface IUserDocument extends Document {
   firstName: string;
   lastName: string;
   password?: string;
-  avatar?: Buffer;
+  avatar?: string;
 }
 
 export interface IUserModel extends Model<IUserDocument> {
