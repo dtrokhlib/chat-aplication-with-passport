@@ -25,6 +25,7 @@ export class Application {
         secret: process.env.SESSION_SECRET || 'test123rtest',
         resave: true,
         saveUninitialized: true,
+        cookie: { secure: false },
       })
     );
     this.app.use(express.static(path.join(__dirname, 'public')));
