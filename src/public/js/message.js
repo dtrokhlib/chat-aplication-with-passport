@@ -12,6 +12,10 @@ sendMessage.addEventListener('click', (e) => {
   socket.emit('message:send', data);
 });
 
-socket.on('roomJoined', (data) => {
+socket.on('room:current', (data) => {
   console.log(data.info);
+});
+
+socket.on('message:send', (msg) => {
+  console.log(msg);
 });

@@ -15,7 +15,7 @@ router.get('/chats', isAuthenticated, async (req: Request, res: Response) => {
 
   const chats = await Chat.find({ "participants.userId": user.id });
 
-  res.send(chats);
+  res.send({ chats, user: user.id});
 });
 
 export { router as retrieveChatsRouter };
