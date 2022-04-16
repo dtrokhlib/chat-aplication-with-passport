@@ -17,22 +17,15 @@ const chatSchema = new Schema(
           ref: 'User',
           required: true,
         },
-        role: chatRole,
+        role: {
+          type: String,
+          enum: chatRole,
+        },
       },
     ],
-    type: chatType,
-    avatar: Buffer,
-    lastMessage: {
-      text: {
-        type: String,
-        required: false,
-        default: 'Welcome to the Chat!',
-      },
-      time: {
-        type: String,
-        required: false,
-        default: '',
-      },
+    type: {
+      type: String,
+      enum: chatType,
     },
     isDeleted: Boolean,
   },
@@ -40,7 +33,7 @@ const chatSchema = new Schema(
 );
 
 chatSchema.statics.build = (data: IChat) => {
-  return;
+  return new Chat(data);
 };
 
 export const Chat = mongoose.model<IChatDocument, IChatModel>(

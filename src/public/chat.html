@@ -5,6 +5,7 @@
   <title>Socket.IO chat</title>
   <link rel="stylesheet" href="/css/bootstrap.min.css" />
   <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="/css/chat.css" />
 </head>
 
 <body>
@@ -23,19 +24,13 @@
               <button class="btn btn-outline-light" type="submit">
                 Search
               </button>
-              <button class="btn btn-outline-light" style="margin-left: 5px" type="submit">
+              <button id="create-chat-btn" class="btn btn-outline-light" style="margin-left: 5px" type="submit">
                 Create
               </button>
             </form>
           </div>
         </div>
         <div class="container room-container">
-          <div class="row">
-            <div class="col">
-              <h5>Chat name</h5>
-              <span>Chat last message... 17.57</span>
-            </div>
-          </div>
         </div>
       </div>
       <div class="col main-message-container">
@@ -43,11 +38,11 @@
           <div class="container">
             <div class="row">
               <div class="col">
-                <div class="row message1">
+                <!-- <div class="row message1">
                   <div class="col">
                     <span>Username</span><br /><span>Chat last message... 17.57</span>
                   </div>
-                </div>
+                </div> -->
               </div>
             </div>
             <div class="row">
@@ -65,10 +60,37 @@
       </div>
     </div>
   </div>
+
+  <div class="create-chat-popup">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <form>
+            <div class="form-group">
+              <label for="chatName">Chat Name</label>
+              <input type="text" class="form-control" id="chatName" placeholder="Chat name">
+            </div><br>
+            <div class="form-group">
+              <label for="chatType">Chat Type</label>
+              <select class="form-control" id="chatType">
+                <option value="public">Public</option>
+                <option value="private">Private</option>
+              </select>
+            </div><br>
+            <button id="createChat" class="btn btn-primary" type="submit">Create</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </body>
 
 <script src="/js/bootstrap.bundle.min.js"></script>
 <script src="/js/socket.io.js"></script>
+<script src="/js/retrieve-chat.js"></script>
+<script src="/js/chat-handler.js"></script>
+<script src="/js/chat-change-handler.js"></script>
 <script src="/js/message.js"></script>
 
 <script></script>

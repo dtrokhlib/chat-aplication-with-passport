@@ -11,6 +11,9 @@ import session from 'express-session';
 import { authFacebookRouter } from './routes/auth-facebook';
 import { authGoogleRouter } from './routes/auth-google';
 import { authTwitterRouter } from './routes/auth-twitter';
+import { createChatRouter } from './routes/create-chat';
+import { retrieveChatsRouter } from './routes/retrieve-chats';
+import { chatViewRouter } from './routes/retrieve-single-chat';
 
 export class Application {
   app: Express;
@@ -39,6 +42,9 @@ export class Application {
   middlewares() {}
 
   routes() {
+    this.app.use(chatViewRouter);
+    this.app.use(retrieveChatsRouter);
+    this.app.use(createChatRouter)
     this.app.use(chatRouter);
     this.app.use(authLocalRouter);
     this.app.use(authFacebookRouter);
