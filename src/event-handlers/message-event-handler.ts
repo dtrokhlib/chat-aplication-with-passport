@@ -36,8 +36,21 @@ export const registerMessageHandler = (io: any, socket: any) => {
     const { chats } = payload;
     chats.forEach((chat: any) => {
       socket.join(chat._id);
-      console.log(`Chat joined: ${chat._id} - ${chat.name}`);
     });
+  };
+
+  const roomJoin = async (payload: any) => {
+    const { room, userId } = payload;
+    const chat = await Chat.findById(room);
+    chat!.participants.push({
+      userId,
+      role: 1,
+    });
+
+    await chat!.save();
+
+    socket.join(room);
+    socket.emit('room:join');
   };
 
   const searchChat = async (payload: any) => {
@@ -55,5 +68,6 @@ export const registerMessageHandler = (io: any, socket: any) => {
   socket.on('message:receive', sendMessage);
   socket.on('room:change', roomChange);
   socket.on('room:join-all', roomJoinAll);
+  socket.on('room:join', roomJoin);
   socket.on('room:search', searchChat);
 };

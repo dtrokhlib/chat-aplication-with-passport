@@ -6,18 +6,15 @@ const searchChatInput = document.querySelector('#search-chat-input');
 
 chatSearchButton.addEventListener('click', (e) => {
   e.preventDefault();
-
   chatSearchPopup.style.display = 'block';
 });
 
 cancelSearchChat.addEventListener('click', (e) => {
   e.preventDefault();
-
   chatSearchPopup.style.display = 'none';
 });
 
 searchChat.addEventListener('click', (e) => {
-  console.log(searchChatInput.value);
   socket.emit('room:search', {
     id: localStorage.getItem('userId'),
     searchValue: searchChatInput.value,

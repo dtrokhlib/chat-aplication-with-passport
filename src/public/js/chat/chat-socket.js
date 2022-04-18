@@ -6,7 +6,7 @@ sendMessage.addEventListener('click', (e) => {
   e.preventDefault();
 
   const data = {
-    room: currentChatId,
+    room: localStorage.getItem('room'),
     value: messageValue.value,
     userId: localStorage.getItem('userId'),
   };
@@ -24,6 +24,11 @@ socket.on('message:send', ({ message }) => {
   insertMesssageBlock([message]);
 });
 
-socket.on('room:search', (chats) => {
-  insertChatSearch(chats);
+socket.on('room:search', async (chats) => {
+  await insertChatSearch(chats);
+  await addChatsSearchListeners(document.getElementsByClassName('join-button'));
+});
+
+socket.on('room:join', () => {
+  location.reload();
 });
