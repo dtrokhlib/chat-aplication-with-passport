@@ -1,6 +1,6 @@
 import bodyParser from 'body-parser';
 import express, { Express } from 'express';
-import { chatRouter } from './routes/chat';
+import { chatRouter } from './routes/render-chat';
 import path from 'path';
 import passport from 'passport';
 import { authLocalRouter } from './routes/auth-local';
@@ -44,7 +44,7 @@ export class Application {
   routes() {
     this.app.use(chatViewRouter);
     this.app.use(retrieveChatsRouter);
-    this.app.use(createChatRouter)
+    this.app.use(createChatRouter);
     this.app.use(chatRouter);
     this.app.use(authLocalRouter);
     this.app.use(authFacebookRouter);

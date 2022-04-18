@@ -1,5 +1,6 @@
 import moment from 'moment';
 import mongoose from 'mongoose';
+import { Chat } from '../models/chat.';
 import { Message } from '../models/message';
 import { User } from '../models/user';
 
@@ -39,8 +40,20 @@ export const registerMessageHandler = (io: any, socket: any) => {
     });
   };
 
+  const searchChat = async (payload: any) => {
+    const { id, searchValue } = payload;
+    const chats = await Chat.find({
+      'participants.userId': { $ne: id },
+      type: 0,
+      name: { $regex: '.*' + searchValue + '.*' },
+    });
+
+    socket.emit('room:search', chats);
+  };
+
   socket.on('message:send', recieveMessage);
   socket.on('message:receive', sendMessage);
   socket.on('room:change', roomChange);
   socket.on('room:join-all', roomJoinAll);
+  socket.on('room:search', searchChat);
 };

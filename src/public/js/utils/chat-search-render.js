@@ -1,0 +1,13 @@
+const chatSearchList = document.querySelector('.chat-search-list');
+
+const insertChatSearch = (chats) => {
+
+  console.log(chats)
+  let html = '';
+
+  chats.forEach((chat) => {
+    html += `<div class="chat-item">Chat name: <strong>${chat.name}</strong><br><button class="join-button btn btn-primary">Join</button></div>`;
+  });
+
+  chatSearchList.innerHTML = html;
+};

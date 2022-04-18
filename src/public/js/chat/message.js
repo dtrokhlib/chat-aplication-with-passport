@@ -23,3 +23,7 @@ socket.on('room:current', ({ messages }) => {
 socket.on('message:send', ({ message }) => {
   insertMesssageBlock([message]);
 });
+
+socket.on('room:search', (chats) => {
+  insertChatSearch(chats);
+});

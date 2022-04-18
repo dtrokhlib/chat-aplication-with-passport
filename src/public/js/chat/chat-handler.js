@@ -1,6 +1,7 @@
 const openCreateChatPopup = document.querySelector('#create-chat-btn');
 const createChatPopup = document.querySelector('.create-chat-popup');
 const createChat = document.querySelector('#createChat');
+const cancelCreateChat = document.querySelector('#cancelCreateChat');
 const chatNameInput = document.querySelector('#chatName');
 const chatTypeInput = document.querySelector('#chatType');
 
@@ -10,10 +11,16 @@ openCreateChatPopup.addEventListener('click', (e) => {
   createChatPopup.style.display = 'block';
 });
 
+cancelCreateChat.addEventListener('click', (e) => {
+  e.preventDefault();
+  chatNameInput.value = '';
+  createChatPopup.style.display = 'none';
+});
+
 createChat.addEventListener('click', async (e) => {
   e.preventDefault();
 
-  if(!chatNameInput.value || chatNameInput.length < 2) {
+  if (!chatNameInput.value || chatNameInput.length < 2) {
     return alert('Name must be longer than 2 elements');
   }
 
