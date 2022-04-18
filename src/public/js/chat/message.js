@@ -8,14 +8,18 @@ sendMessage.addEventListener('click', (e) => {
   const data = {
     room: currentChatId,
     value: messageValue.value,
+    userId: localStorage.getItem('userId'),
   };
+  messageValue.value = '';
+  messageValue.focus();
   socket.emit('message:send', data);
 });
 
-socket.on('room:current', (data) => {
-  console.log(data.info);
+socket.on('room:current', ({ messages }) => {
+  messageContainer.innerHTML = '';
+  insertMesssageBlock(messages);
 });
 
-socket.on('message:send', (msg) => {
-  console.log(msg);
+socket.on('message:send', ({ message }) => {
+  insertMesssageBlock([message]);
 });
