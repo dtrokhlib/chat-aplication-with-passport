@@ -5,6 +5,7 @@
   <title>Socket.IO chat</title>
   <link rel="stylesheet" href="/css/bootstrap.min.css" />
   <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="/css/chat.css" />
 </head>
 
 <body>
@@ -19,35 +20,28 @@
         <div class="row p-2">
           <div class="col">
             <form class="d-flex">
-              <input class="form-control me-2" type="search" placeholder="Enter room name..." aria-label="Search" />
-              <button class="btn btn-outline-light" type="submit">
+              <button id="search-chat-btn" class="btn btn-outline-light" type="submit">
                 Search
               </button>
-              <button class="btn btn-outline-light" style="margin-left: 5px" type="submit">
+              <button id="create-chat-btn" class="btn btn-outline-light" style="margin-left: 5px" type="submit">
                 Create
               </button>
             </form>
           </div>
         </div>
         <div class="container room-container">
-          <div class="row">
-            <div class="col">
-              <h5>Chat name</h5>
-              <span>Chat last message... 17.57</span>
-            </div>
-          </div>
         </div>
       </div>
       <div class="col main-message-container">
         <div class="row text-message">
           <div class="container">
             <div class="row">
-              <div class="col">
-                <div class="row message1">
+              <div class="col message-cotainer">
+                <!-- <div class="row message1">
                   <div class="col">
                     <span>Username</span><br /><span>Chat last message... 17.57</span>
                   </div>
-                </div>
+                </div> -->
               </div>
             </div>
             <div class="row">
@@ -65,11 +59,62 @@
       </div>
     </div>
   </div>
+
+  <div class="search-chat-popup">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <input id="search-chat-input" class="form-control me-2" type="search" placeholder="Enter room name..."
+            aria-label="Search" /><br>
+          <button id="searchChat" class="btn btn-primary" type="submit">Search</button>
+          <button id="cancelSearchChat" class="btn btn-secondary" type="submit">Cancel</button>
+        </div>
+      </div><br>
+      <div class="row">
+        <div class="col chat-search-list">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="create-chat-popup">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <form>
+            <div class="form-group">
+              <label for="chatName">Chat Name</label>
+              <input type="text" class="form-control" id="chatName" placeholder="Chat name">
+            </div><br>
+            <div class="form-group">
+              <label for="chatType">Chat Type</label>
+              <select class="form-control" id="chatType">
+                <option value="public">Public</option>
+                <option value="private">Private</option>
+              </select>
+            </div><br>
+            <button id="createChat" class="btn btn-primary" type="submit">Create</button>
+            <button id="cancelCreateChat" class="btn btn-secondary" type="submit">Cancel</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </body>
 
-<script src="/js/bootstrap.bundle.min.js"></script>
-<script src="/js/socket.io.js"></script>
-<script src="/js/message.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.3/moment.min.js"></script>
+<script src="/js/libs/bootstrap.bundle.min.js"></script>
+<script src="/js/libs/socket.io.js"></script>
+<script src="/js/utils/message-render.js"></script>
+<script src="/js/utils/chat-search-render.js"></script>
+<script src="/js/utils/add-listeners.js"></script>
+<script src="/js/utils/chat-list-render.js"></script>
+
+<script src="/js/chat/chat-retrieve.js"></script>
+<script src="/js/chat/chat-handler.js"></script>
+<script src="/js/chat/chat-search.js"></script>
+<script src="/js/chat/chat-socket.js"></script>
 
 <script></script>
 

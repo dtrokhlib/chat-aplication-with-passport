@@ -20,9 +20,8 @@ const startUp = async () => {
     console.log(`chat-app-with-passport is running on ${PORT}`);
   });
 
-  const onConnection = (socket: Socket) => {
+  const onConnection = async (socket: Socket) => {
     socket.emit('message', 'Welcome to the chat!');
-
     registerMessageHandler(io, socket);
   };
 

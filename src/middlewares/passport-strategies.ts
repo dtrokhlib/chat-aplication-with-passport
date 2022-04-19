@@ -4,7 +4,7 @@ import PassportTwitter from 'passport-twitter';
 import PassportGoogle from 'passport-google-oauth20';
 import passport from 'passport';
 import { User } from '../models/user';
-import { IUser, IUserDocument } from '../models/interfaces/user.interface';
+import { IUserDocument } from '../models/interfaces/user.interface';
 
 passport.serializeUser((user, done) => done(null, user));
 passport.deserializeUser((user: IUserDocument, done) => done(null, user));
@@ -17,9 +17,9 @@ passport.use(
       passwordField: 'password',
       passReqToCallback: true,
     },
-    async (req, email, password, done) => {
+    async (req, username, password, done) => {
       try {
-        const user = await User.findOne({ email });
+        const user = await User.findOne({ username });
         if (user && (await User.comparePasswords(password, user.password!))) {
           done(null, user);
         } else {
@@ -46,7 +46,6 @@ passport.use(
         if (user) {
           return done('This email is already taken', false);
         } else {
-          console.log(req.body);
           const newUser = User.build({ ...req.body });
           await newUser.save();
 
@@ -69,8 +68,29 @@ passport.use(
       profileFields: ['id', 'first_name', 'last_name', 'photos'],
     },
     async (accessToken, refreshToken, profile, done) => {
-      console.log(profile);
-      done(null, profile);
+      try {
+        if (!profile.name || !profile.photos) {
+          return done('Profile data not provided', false);
+        }
+        const username = `${profile.name.familyName}-${profile.name.givenName}-${profile.id}`;
+
+        const user = await User.findOne({ username });
+        if (user) {
+          return done(null, user);
+        } else {
+          const newUser = User.build({
+            username,
+            firstName: profile.name?.givenName,
+            lastName: profile.name?.familyName,
+            avatar: profile.photos[0].value,
+          });
+          await newUser.save();
+
+          return done(null, newUser);
+        }
+      } catch (err) {
+        return done(err, false);
+      }
     }
   )
 );
@@ -84,8 +104,29 @@ passport.use(
       callbackURL: process.env.GOOGLE_CALLBACK_URL!,
     },
     async (accessToken, refreshToken, profile, done) => {
-      console.log(profile);
-      done(null, profile);
+      try {
+        if (!profile.name || !profile.photos) {
+          return done('Profile data not provided', false);
+        }
+        const username = `${profile.name.familyName}-${profile.name.givenName}-${profile.id}`;
+
+        const user = await User.findOne({ username });
+        if (user) {
+          return done(null, user);
+        } else {
+          const newUser = User.build({
+            username,
+            firstName: profile.name.givenName,
+            lastName: profile.name.familyName,
+            avatar: profile.photos[0].value,
+          });
+          await newUser.save();
+
+          return done(null, newUser);
+        }
+      } catch (err: any) {
+        return done(err, false);
+      }
     }
   )
 );
@@ -98,9 +139,30 @@ passport.use(
       consumerSecret: process.env.TWITTER_CONSUMER_SECRET!,
       callbackURL: process.env.TWITTER_CALLBACK_URL!,
     },
-    function (token, tokenSecret, profile, done) {
-      console.log(profile);
-      done(null, profile);
+    async (token, tokenSecret, profile, done) => {
+      try {
+        if (!profile.username || !profile.photos) {
+          return done('Profile data not provided', false);
+        }
+        const username = `${profile.username}-${profile.id}`;
+
+        const user = await User.findOne({ username });
+        if (user) {
+          return done(null, user);
+        } else {
+          const newUser = User.build({
+            username,
+            firstName: profile.displayName,
+            lastName: profile.displayName,
+            avatar: profile.photos[0].value,
+          });
+          await newUser.save();
+
+          return done(null, newUser);
+        }
+      } catch (err) {
+        return done(err, false);
+      }
     }
   )
 );

@@ -11,11 +11,6 @@ export interface IChat {
     }
   ];
   type: chatType;
-  avatar?: Buffer;
-  lastMessage?: {
-    text: string;
-    time: string;
-  },
   isDeleted?: boolean;
 }
 
@@ -28,11 +23,6 @@ export interface IChatDocument extends Document {
     }
   ];
   type: chatType;
-  avatar?: Buffer;
-  lastMessage?: {
-    text: string;
-    time: string;
-  };
   isDeleted?: boolean;
 }
 
