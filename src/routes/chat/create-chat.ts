@@ -1,9 +1,9 @@
 import { Response, Request, Router } from 'express';
-import { isAuthenticated } from '../middlewares/isAuthenticated';
-import { Chat } from '../models/chat.';
-import { chatRole } from '../models/types/chat-role';
-import { chatType } from '../models/types/chat-type';
-import { User } from '../models/user';
+import { isAuthenticated } from '../../middlewares/isAuthenticated';
+import { Chat } from '../../models/chat.';
+import { chatRole } from '../../models/types/chat-role';
+import { chatType } from '../../models/types/chat-type';
+import { User } from '../../models/user';
 const router = Router();
 
 router.post('/chat', isAuthenticated, async (req: Request, res: Response) => {

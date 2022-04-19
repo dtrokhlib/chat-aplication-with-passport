@@ -3,6 +3,7 @@ const addChatsListeners = (elements) => {
     elements[i].addEventListener('click', async (e) => {
       await socket.emit('room:leave', { room: localStorage.getItem('room') });
       await localStorage.setItem('room', e.currentTarget.id);
+      document.querySelector('.text-message').style.display = 'block';
       socket.emit('room:change', { room: localStorage.getItem('room') });
     });
   }

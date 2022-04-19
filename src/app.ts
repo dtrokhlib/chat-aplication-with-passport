@@ -1,19 +1,22 @@
 import bodyParser from 'body-parser';
 import express, { Express } from 'express';
-import { chatRouter } from './routes/render-chat';
-import path from 'path';
-import passport from 'passport';
-import { authLocalRouter } from './routes/auth-local';
-import './middlewares/passport-strategies';
 import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
 import session from 'express-session';
-import { authFacebookRouter } from './routes/auth-facebook';
-import { authGoogleRouter } from './routes/auth-google';
-import { authTwitterRouter } from './routes/auth-twitter';
-import { createChatRouter } from './routes/create-chat';
-import { retrieveChatsRouter } from './routes/retrieve-chats';
-import { chatViewRouter } from './routes/retrieve-single-chat';
+import path from 'path';
+import passport from 'passport';
+
+import './middlewares/passport-strategies';
+
+import { authLocalRouter } from './routes/auth/auth-local';
+import { authFacebookRouter } from './routes/auth/auth-facebook';
+import { authGoogleRouter } from './routes/auth/auth-google';
+import { authTwitterRouter } from './routes/auth/auth-twitter';
+
+import { chatRouter } from './routes/chat/render-chat';
+import { createChatRouter } from './routes/chat/create-chat';
+import { retrieveChatsRouter } from './routes/chat/retrieve-chats';
+import { chatViewRouter } from './routes/chat/retrieve-single-chat';
 
 export class Application {
   app: Express;

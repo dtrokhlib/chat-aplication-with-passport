@@ -1,8 +1,5 @@
-import moment from 'moment';
-import mongoose from 'mongoose';
 import { Chat } from '../models/chat.';
 import { Message } from '../models/message';
-import { User } from '../models/user';
 
 export const registerMessageHandler = (io: any, socket: any) => {
   const recieveMessage = async (payload: any) => {

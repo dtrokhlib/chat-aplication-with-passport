@@ -1,7 +1,7 @@
 import { Response, Request, Router } from 'express';
-import { isAuthenticated } from '../middlewares/isAuthenticated';
-import { Chat } from '../models/chat.';
-import { User } from '../models/user';
+import { isAuthenticated } from '../../middlewares/isAuthenticated';
+import { Chat } from '../../models/chat.';
+import { User } from '../../models/user';
 
 const router = Router();
 

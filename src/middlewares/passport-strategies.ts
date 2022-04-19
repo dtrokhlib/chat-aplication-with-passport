@@ -4,7 +4,7 @@ import PassportTwitter from 'passport-twitter';
 import PassportGoogle from 'passport-google-oauth20';
 import passport from 'passport';
 import { User } from '../models/user';
-import { IUser, IUserDocument } from '../models/interfaces/user.interface';
+import { IUserDocument } from '../models/interfaces/user.interface';
 
 passport.serializeUser((user, done) => done(null, user));
 passport.deserializeUser((user: IUserDocument, done) => done(null, user));
