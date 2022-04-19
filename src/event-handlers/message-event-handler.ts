@@ -26,17 +26,19 @@ export const registerMessageHandler = (io: any, socket: any) => {
   };
 
   const roomChange = async (payload: any) => {
+    const { room } = payload;
     const messages = await Message.find({
-      chatId: payload,
+      chatId: room,
     }).populate('userId');
-    io.to(payload).emit('room:current', { messages });
+    socket.join(room);
+    io.to(room).emit('room:current', { messages });
   };
 
   const roomJoinAll = async (payload: any) => {
-    const { chats } = payload;
-    chats.forEach((chat: any) => {
-      socket.join(chat._id);
-    });
+    // const { chats } = payload;
+    // chats.forEach((chat: any) => {
+    //   socket.join(chat._id);
+    // });
   };
 
   const roomJoin = async (payload: any) => {
@@ -49,8 +51,12 @@ export const registerMessageHandler = (io: any, socket: any) => {
 
     await chat!.save();
 
-    socket.join(room);
     socket.emit('room:join');
+  };
+
+  const roomLeave = async (payload: any) => {
+    const { room } = payload;
+    socket.leave(payload);
   };
 
   const searchChat = async (payload: any) => {
@@ -70,4 +76,5 @@ export const registerMessageHandler = (io: any, socket: any) => {
   socket.on('room:join-all', roomJoinAll);
   socket.on('room:join', roomJoin);
   socket.on('room:search', searchChat);
+  socket.on('room:leave', roomLeave);
 };

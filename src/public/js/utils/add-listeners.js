@@ -1,8 +1,9 @@
 const addChatsListeners = (elements) => {
   for (let i = 0; i < elements.length; i++) {
     elements[i].addEventListener('click', async (e) => {
-      localStorage.setItem('room', e.currentTarget.id);
-      socket.emit('room:change', localStorage.getItem('room'));
+      await socket.emit('room:leave', { room: localStorage.getItem('room') });
+      await localStorage.setItem('room', e.currentTarget.id);
+      socket.emit('room:change', { room: localStorage.getItem('room') });
     });
   }
 };
